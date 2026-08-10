@@ -1,0 +1,10 @@
+{{>header}}
+<div class="text-center py-4">
+  <div class="mb-3" style="font-size:3rem; color:#1F3864;">&#10003;</div>
+  <h4 class="fw-bold mb-2">이체가 완료되었습니다</h4>
+  <p class="text-muted">거래번호: {{txNumber}}</p>
+  <p class="fs-4 fw-bold" style="color:#1F3864;">{{amount}} 원</p>
+  <p class="text-muted">이체 후 잔액: {{balanceAfter}} 원</p>
+  <a href="/main" class="btn mt-3" style="background-color:#1F3864;color:white;">確認 (메인으로)</a>
+</div>
+{{>footer}}

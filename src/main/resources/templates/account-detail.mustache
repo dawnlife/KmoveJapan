@@ -1,0 +1,16 @@
+{{>header}}
+<h4 class="screen-title mb-3">&lt;SCR003&gt; 계좌 상세조회</h4>
+
+<div class="card shadow-sm mb-3" style="background-color:#DCE6F1;">
+  <div class="card-body">
+    <div class="text-muted small">계좌번호</div>
+    <div class="mb-3">{{account.accountNumber}}</div>
+    <div class="text-muted small">잔액</div>
+    <div class="fs-3 fw-bold" style="color:#1F3864;">{{account.balanceFormatted}} 원</div>
+  </div>
+</div>
+
+<a href="/transfer?fromAccount={{account.accountNumber}}" class="btn btn-brand">振込する (이체하기)</a>
+<a href="/history?accountNumber={{account.accountNumber}}" class="btn btn-outline-secondary ms-2">이체내역 조회</a>
+<a href="/main" class="btn btn-outline-secondary ms-2">메인으로</a>
+{{>footer}}

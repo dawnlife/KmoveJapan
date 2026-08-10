@@ -1,0 +1,152 @@
+{{>header}}
+</div><!-- header의 narrow container를 닫고 아래는 full-width 히어로 -->
+
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- 좌측: 이벤트/프로모션 텍스트 -->
+      <div class="col-lg-4">
+        <span class="hero-badge">이벤트</span>
+        <div class="hero-headline">첫 이체하고<br>포인트 받자!</div>
+        <div class="hero-sub">첫 계좌이체를 완료하면<br>최대 10,000포인트를 드려요.</div>
+        <div class="hero-date">08.05 ~ 08.26</div>
+        <button class="btn btn-dark rounded-pill mt-3 px-4">자세히</button>
+      </div>
+
+      <!-- 중앙: 마스코트 -->
+      <div class="col-lg-4 text-center my-4 my-lg-0">
+        <img src="/images/event.png" alt="마스코트" class="hero-mascot-img" style="width:370px;height:370px;object-fit:contain;margin:0 auto;display:block;">
+      </div>
+
+      <!-- 우측: 큰 타일 2개 + 아이콘 그리드 -->
+      <div class="col-lg-4">
+        <div class="row g-2 mb-2">
+          <div class="col-6">
+            <a href="/history" class="hero-tile-img" style="display:block;border-radius:12px;overflow:hidden;">
+              <img src="/images/johwae.png" alt="조회" style="width:100%;height:96px;object-fit:cover;display:block;">
+            </a>
+          </div>
+          <div class="col-6">
+            <a href="/transfer" class="hero-tile-img" style="display:block;border-radius:12px;overflow:hidden;">
+              <img src="/images/songgeum.png" alt="송금" style="width:100%;height:96px;object-fit:cover;display:block;">
+            </a>
+          </div>
+        </div>
+        <div class="row g-2">
+          <div class="col-4">
+            <a href="#" class="icon-tile">
+              <div class="icon-circle">🧾</div>
+              <div class="icon-label">공과금</div>
+            </a>
+          </div>
+          <div class="col-4">
+            <a href="/transfer" class="icon-tile">
+              <div class="icon-circle">🔒</div>
+              <div class="icon-label">이체한도</div>
+            </a>
+          </div>
+          <div class="col-4">
+            <a href="#" class="icon-tile">
+              <div class="icon-circle">🏛️</div>
+              <div class="icon-label">오픈뱅킹</div>
+            </a>
+          </div>
+          <div class="col-4">
+            <a href="#" class="icon-tile">
+              <div class="icon-circle">🛡️</div>
+              <div class="icon-label">인증센터</div>
+            </a>
+          </div>
+          <div class="col-4">
+            <a href="#" class="icon-tile">
+              <div class="icon-circle">💱</div>
+              <div class="icon-label">환율</div>
+            </a>
+          </div>
+          <div class="col-4">
+            <a href="#" class="icon-tile">
+              <div class="icon-circle">🎧</div>
+              <div class="icon-label">문의</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 계좌목록 / 최근이체내역 탭 (본 앱 로그인 대시보드용) -->
+<div class="container py-4" style="max-width: 900px;">
+  <h5 class="screen-title mb-3">&lt;SCR002&gt; 보유 계좌 · 최근이체내역</h5>
+
+  <ul class="nav nav-tabs account-tabs" id="mainTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="tab-accounts-btn" data-bs-toggle="tab" data-bs-target="#tab-accounts" type="button" role="tab">계좌목록</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="tab-history-btn" data-bs-toggle="tab" data-bs-target="#tab-history" type="button" role="tab">최근이체내역</button>
+    </li>
+  </ul>
+
+  <div class="tab-content card shadow-sm tab-card p-0">
+    <!-- 계좌목록 -->
+    <div class="tab-pane fade show active p-0" id="tab-accounts" role="tabpanel">
+      <ul class="list-group list-group-flush account-list">
+        {{#accounts}}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <a href="/accounts/{{accountNumber}}" class="account-number">
+            <div>{{accountNumber}}</div>
+            <small class="text-muted fw-normal">잔액</small>
+          </a>
+          <span class="account-balance">{{balanceFormatted}} 원</span>
+        </li>
+        {{/accounts}}
+        {{^hasAccounts}}
+        <li class="list-group-item text-muted">보유 계좌가 없습니다.</li>
+        {{/hasAccounts}}
+      </ul>
+    </div>
+
+    <!-- 최근이체내역 (보유 전 계좌 합산, 최신순 10건) -->
+    <div class="tab-pane fade p-0" id="tab-history" role="tabpanel">
+      <table class="table table-sm mb-0">
+        <thead>
+          <tr><th>계좌번호</th><th>거래일시</th><th>유형</th><th>금액</th><th>잔액</th></tr>
+        </thead>
+        <tbody>
+          {{#recentHistory}}
+          <tr>
+            <td>{{account.accountNumber}}</td>
+            <td>{{txDatetime}}</td>
+            <td>{{txTypeLabel}}</td>
+            <td>{{amountFormatted}}</td>
+            <td>{{balanceAfterFormatted}}</td>
+          </tr>
+          {{/recentHistory}}
+          {{^hasRecentHistory}}
+          <tr><td colspan="5" class="text-muted text-center py-3">최근 이체내역이 없습니다.</td></tr>
+          {{/hasRecentHistory}}
+        </tbody>
+      </table>
+      <div class="text-end p-2">
+        <a href="/history" class="small text-muted">전체 이체내역 조회 ></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 하단 노란 정보 밴드 (5칼럼, うさぎ銀行 footer 레이아웃) -->
+<div class="info-band">
+  <div class="container">
+    <div class="row">
+      <div class="col info-col"><div class="title">예금·적금</div>금리 안내</div>
+      <div class="col info-col"><div class="title">이체한도</div>한도 관리</div>
+      <div class="col info-col"><div class="title">보안센터</div>안전거래 안내</div>
+      <div class="col info-col"><div class="title">이체내역</div>거래 조회</div>
+      <div class="col info-col"><div class="title">고객센터</div>1588-0000</div>
+    </div>
+  </div>
+</div>
+
+<div class="container py-3" style="max-width: 900px;">
+{{>footer}}

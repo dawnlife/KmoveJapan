@@ -1,0 +1,78 @@
+{{>header}}
+</div><!-- header의 narrow container를 닫고 아래는 wide 레이아웃 -->
+
+<div class="container py-5" style="max-width: 960px;">
+
+  <h3 class="fw-bold mb-4">로그인</h3>
+  <ul class="login-checklist mb-4">
+    <li>✔ 치이카와은행 홈페이지는 인터넷 주소창에 보안 자물쇠 이미지가 있습니다.</li>
+    <li>✔ 치이카와은행에서는 보안승급, 보안강화 등을 이유로 추가 인증 절차를 임의로 요구하지 않습니다.</li>
+    <li>✔ 인터넷뱅킹과 모바일뱅킹을 동시에 로그인할 수 없습니다. (중복 로그인 시 거래 제한)</li>
+    <li>✔ 이용자 아이디/비밀번호는 이후 서비스 이용에 필요하니 반드시 기억하시기 바랍니다.</li>
+  </ul>
+
+  {{#error}}
+  <div class="alert alert-danger py-2">{{error}}</div>
+  {{/error}}
+
+  <!-- 로그인 방식 탭 -->
+  <ul class="nav login-tabs mb-0">
+    <li class="nav-item flex-fill text-center">
+      <a class="nav-link" href="#">치이카와 인증서 로그인</a>
+    </li>
+    <li class="nav-item flex-fill text-center">
+      <a class="nav-link" href="#">공동/금융인증서 로그인</a>
+    </li>
+    <li class="nav-item flex-fill text-center">
+      <a class="nav-link active" href="#">아이디 로그인</a>
+    </li>
+    <li class="nav-item flex-fill text-center">
+      <a class="nav-link" href="#">앱으로 로그인</a>
+    </li>
+  </ul>
+
+  <div class="login-panel row g-0">
+    <!-- 좌측: 안내 -->
+    <div class="col-md-5 border-end d-flex flex-column align-items-center justify-content-center py-5">
+      <div class="login-icon-box mb-3">👤</div>
+      <div class="fw-bold fs-5 mb-2">아이디 로그인</div>
+      <div class="text-muted text-center small">아이디·비밀번호를 통해<br>인터넷뱅킹에 로그인합니다.</div>
+    </div>
+
+    <!-- 우측: 입력 폼 -->
+    <div class="col-md-7 p-5">
+      <form method="post" action="/login">
+        <div class="mb-3">
+          <input type="text" class="form-control form-control-lg" name="userId" placeholder="아이디 입력" required autofocus>
+        </div>
+        <div class="mb-3 password-field">
+          <input type="password" class="form-control form-control-lg" name="password" id="passwordInput" placeholder="비밀번호 입력" required>
+          <button type="button" class="password-toggle-btn" id="passwordToggleBtn" aria-label="비밀번호 표시">👁</button>
+        </div>
+        <button type="submit" class="btn btn-brand-yellow btn-lg w-100">로그인</button>
+      </form>
+      <p class="text-center small mt-3 mb-1" style="color:var(--brand-yellow-dark); font-weight:700;">
+        아이디·비밀번호 5회 연속 오류 시
+      </p>
+      <p class="text-center small text-muted mb-3">이용자 아이디/비밀번호 로그인 이용이 제한됩니다.</p>
+      <p class="text-center small">
+        <a href="#" class="text-muted me-2">ID 찾기 ></a>
+        <a href="#" class="text-muted me-2">비밀번호 재설정 ></a>
+        <a href="#" class="text-muted">회원가입 ></a>
+      </p>
+      <p class="text-muted small text-center mt-3 mb-0">데모 계정: kim / 1234</p>
+    </div>
+  </div>
+
+<script>
+  var pwInput = document.getElementById('passwordInput');
+  var pwToggleBtn = document.getElementById('passwordToggleBtn');
+  pwToggleBtn.addEventListener('click', function () {
+    var isHidden = pwInput.type === 'password';
+    pwInput.type = isHidden ? 'text' : 'password';
+    pwToggleBtn.textContent = isHidden ? '🙈' : '👁';
+    pwToggleBtn.setAttribute('aria-label', isHidden ? '비밀번호 숨기기' : '비밀번호 표시');
+  });
+</script>
+
+{{>footer}}

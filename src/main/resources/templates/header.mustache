@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/app.css" rel="stylesheet">
+  <title>치이카와은행 인터넷뱅킹</title>
+</head>
+<body>
+<!-- 상단 얇은 바 (기업뱅킹/카드/은행소개 등) -->
+<div class="topbar">
+  <div class="container d-flex justify-content-between">
+    <div>
+      <a href="#" class="topbar-link">기업뱅킹</a>
+      <a href="#" class="topbar-link">치이카와카드</a>
+      <a href="#" class="topbar-link">은행소개</a>
+      <a href="#" class="topbar-link">채용안내</a>
+    </div>
+    <div>
+      {{#loggedIn}}
+      <span class="topbar-link">{{customerName}} 님</span>
+      <a href="/logout" class="topbar-link">로그아웃</a>
+      {{/loggedIn}}
+      <a href="#" class="topbar-link">인증센터</a>
+      <a href="#" class="topbar-link">Language ⌄</a>
+    </div>
+  </div>
+</div>
+
+<!-- 메인 네비게이션 -->
+<nav class="app-navbar">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a class="brand" href="/main"><img src="/images/logo.png" alt="치이카와은행" class="brand-logo" style="height:57px;width:auto;display:block;"></a>
+    <div class="d-none d-md-flex">
+      <a href="/main" class="nav-link-custom">조회</a>
+      <a href="/transfer" class="nav-link-custom">송금</a>
+      <a href="#" class="nav-link-custom">공과금</a>
+      <a href="#" class="nav-link-custom">외환</a>
+      <a href="#" class="nav-link-custom">금융상품</a>
+    </div>
+    <div class="d-flex align-items-center gap-3 fs-5">
+      <span>💬</span><span>🔍</span><span>☰</span>
+    </div>
+  </div>
+</nav>
+
+<div class="container py-4" style="max-width: 720px;">

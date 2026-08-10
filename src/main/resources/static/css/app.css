@@ -1,0 +1,445 @@
+:root {
+    --brand-navy: #1F3864;
+    --brand-yellow: #FFC94A;
+    --brand-yellow-dark: #F5B400;
+    --brand-cream: #FFF8E9;
+    --brand-gray-tile: #4B4B4B;
+    --brand-pink: #FFE1E8;
+    --text-dark: #222222;
+}
+
+body {
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    background-color: #FAFAFA;
+    color: var(--text-dark);
+}
+
+/* ===== 상단 얇은 바 ===== */
+.topbar {
+    background: #FAFAFA;
+    border-bottom: 1px solid #ECECEC;
+    padding: 6px 0;
+    font-size: 0.78rem;
+}
+.topbar-link {
+    color: #666;
+    text-decoration: none;
+    margin: 0 8px;
+}
+.topbar-link:hover { color: var(--brand-navy); }
+
+/* ===== 네비게이션 (うさぎ銀行 스타일: 화이트 배경 + 언더라인 메뉴) ===== */
+.app-navbar {
+    background: #FFFFFF;
+    border-bottom: 1px solid #ECECEC;
+    padding: 14px 0;
+}
+.app-navbar .brand {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: var(--brand-navy);
+    text-decoration: none;
+}
+.brand-logo {
+    height: 32px;
+    width: auto;
+    display: block;
+}
+.app-navbar .nav-link-custom {
+    color: #333;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-bottom: 2px solid transparent;
+}
+.app-navbar .nav-link-custom:hover {
+    border-bottom: 2px solid var(--brand-yellow);
+}
+.app-navbar .user-pill {
+    background: var(--brand-cream);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--brand-navy);
+}
+.app-navbar .btn-nav {
+    border-radius: 20px;
+    font-size: 0.82rem;
+    padding: 6px 14px;
+}
+
+/* ===== 대시보드 큰 타일 (SCR002 メイン画面) ===== */
+.tile-big {
+    border-radius: 16px;
+    padding: 28px 24px;
+    height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-decoration: none;
+    transition: transform .15s ease;
+}
+.tile-big:hover { transform: translateY(-3px); }
+.tile-big .tile-label {
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+.tile-yellow {
+    background: var(--brand-yellow);
+    color: var(--brand-navy);
+}
+.tile-dark {
+    background: var(--brand-gray-tile);
+    color: #FFFFFF;
+}
+
+/* ===== 작은 아이콘 그리드 ===== */
+.icon-tile {
+    background: #FFFFFF;
+    border: 1px solid #EFEFEF;
+    border-radius: 14px;
+    padding: 18px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-dark);
+    display: block;
+}
+.icon-tile:hover {
+    border-color: var(--brand-yellow);
+    color: var(--text-dark);
+}
+.icon-tile .icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--brand-cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-size: 1.2rem;
+}
+.icon-tile .icon-label {
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* ===== 계좌 리스트 ===== */
+.account-list .list-group-item {
+    border: none;
+    border-bottom: 1px solid #F0F0F0;
+    padding: 16px 4px;
+}
+.account-list .account-number {
+    color: var(--brand-navy);
+    font-weight: 700;
+    text-decoration: none;
+}
+.account-list .account-balance {
+    font-weight: 800;
+    color: var(--brand-navy);
+}
+
+/* ===== 카드/폼 공통 ===== */
+.card {
+    border-radius: 14px;
+    border: 1px solid #EFEFEF;
+}
+.btn-brand {
+    background-color: var(--brand-navy);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 700;
+}
+.btn-brand:hover {
+    background-color: #16294c;
+    color: #fff;
+}
+.btn-brand-yellow {
+    background-color: var(--brand-yellow);
+    color: var(--brand-navy);
+    border-radius: 8px;
+    font-weight: 700;
+    border: none;
+}
+.btn-brand-yellow:hover {
+    background-color: var(--brand-yellow-dark);
+    color: var(--brand-navy);
+}
+
+/* ===== 하단 정보 밴드 (うさぎ銀行 footer 참고) ===== */
+.info-band {
+    background: var(--brand-cream);
+    border-radius: 14px;
+    margin-top: 32px;
+    padding: 20px 10px;
+}
+.info-band .info-col {
+    text-align: center;
+    font-size: 0.82rem;
+    color: #555;
+}
+.info-band .info-col .title {
+    font-weight: 800;
+    color: var(--brand-navy);
+    margin-bottom: 2px;
+}
+
+.screen-title {
+    color: var(--brand-navy);
+    font-weight: 800;
+}
+
+/* ===== 히어로 섹션 (メイン画面, うさぎ銀行 레이아웃) ===== */
+.hero-section {
+    background: #FFFFFF;
+    padding: 48px 0;
+}
+.hero-badge {
+    display: inline-block;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+    padding: 2px 10px;
+    font-size: 0.78rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+.hero-headline {
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-dark);
+}
+.hero-sub {
+    color: #777;
+    margin-top: 10px;
+    font-size: 0.92rem;
+}
+.hero-date {
+    color: #999;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
+.hero-mascot {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: var(--brand-pink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    margin: 0 auto;
+}
+.hero-mascot-img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+.hero-tile-img {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform .15s ease;
+}
+.hero-tile-img:hover {
+    transform: translateY(-3px);
+}
+.hero-tile-img img {
+    width: 100%;
+    height: 96px;
+    object-fit: cover;
+    display: block;
+}
+.hero-tile {
+    border-radius: 12px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+/* ===== 하단 노란 정보 밴드 (うさぎ銀行 footer, 5칼럼) ===== */
+.info-band {
+    background: #FCE8A8;
+    border-radius: 0;
+    margin-top: 0;
+    padding: 28px 0;
+}
+.info-band .info-col {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #6b5c1e;
+}
+.info-band .info-col .title {
+    font-weight: 800;
+    color: var(--brand-navy);
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+/* ===== 로그인 화면 (うさぎ銀行 レイアウト) ===== */
+.login-checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.login-checklist li {
+    font-size: 0.88rem;
+    color: #555;
+    margin-bottom: 6px;
+}
+.login-tabs {
+    border-bottom: 1px solid #EEE;
+}
+.login-tabs .nav-link {
+    color: #333;
+    font-weight: 700;
+    padding: 16px 8px;
+    border: 1px solid #EEE;
+    border-bottom: none;
+    border-radius: 0;
+}
+.login-tabs .nav-link.active {
+    background: var(--brand-yellow);
+    color: var(--brand-navy);
+    border-color: var(--brand-yellow);
+}
+.login-panel {
+    border: 1px solid #EEE;
+    border-top: none;
+}
+.login-icon-box {
+    width: 84px;
+    height: 84px;
+    border: 2px solid var(--brand-yellow-dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+}
+.password-field {
+    position: relative;
+}
+.password-field input {
+    padding-right: 46px;
+}
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    font-size: 1.1rem;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+}
+.password-toggle-btn:hover {
+    color: var(--brand-navy);
+}
+
+/* ===== 메인화면 계좌목록/최근이체내역 탭 ===== */
+.account-tabs {
+    border-bottom: none;
+}
+.account-tabs .nav-link {
+    color: #666;
+    font-weight: 700;
+    border: 1px solid #EFEFEF;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    padding: 10px 20px;
+    background: #F7F7F7;
+}
+.account-tabs .nav-link.active {
+    color: var(--brand-navy);
+    background: #FFFFFF;
+    border-color: #EFEFEF;
+}
+.tab-card {
+    border-top-left-radius: 0;
+}
+
+/* ===== 이체내역조회 화면 (SCR007, うさぎ銀行 レイアウト) ===== */
+.history-subtabs {
+    border-bottom: none;
+    gap: 4px;
+}
+.history-subtabs .nav-link {
+    color: #999;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: none;
+}
+.history-subtabs .nav-link.active {
+    color: var(--brand-yellow-dark);
+}
+.account-select-box {
+    position: relative;
+    border: 2px solid var(--brand-yellow);
+    border-radius: 12px;
+    padding: 18px 90px 18px 18px;
+    background: #FFFDF5;
+}
+.account-select-input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    outline: none;
+}
+.account-select-mascot {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+}
+.period-btn {
+    border: 1px solid #DDD;
+    background: #FFF;
+    color: #555;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+}
+.period-btn.active {
+    background: var(--brand-yellow);
+    border-color: var(--brand-yellow-dark);
+    color: var(--brand-navy);
+    font-weight: 700;
+}
+.tx-filter-group .btn {
+    font-size: 0.85rem;
+}
+.tx-filter-group .btn-check:checked + .btn-outline-secondary {
+    background: var(--brand-yellow);
+    border-color: var(--brand-yellow-dark);
+    color: var(--brand-navy);
+    font-weight: 700;
+}
+.history-note-box {
+    background: #F7F7F7;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 0.82rem;
+    color: #666;
+}
+.mascot-small {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    font-size: 1.6rem;
+    vertical-align: middle;
+    margin-right: 10px;
+}
