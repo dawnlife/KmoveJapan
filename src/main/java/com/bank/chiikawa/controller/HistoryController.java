@@ -53,9 +53,12 @@ public class HistoryController {
 
         Account target = null;
         if (accountNumber != null) {
-            target = accountService.findByAccountNumber(accountNumber).orElse(null);
-        } else if (!myAccounts.isEmpty()) {
-            target = myAccounts.get(0);
+            target = accountService.findByAccountNumber(accountNumber)
+                    .filter(a -> accountService.isOwnedBy(a, customer)) // IDOR 방지: 남의 계좌면 무시
+                    .orElse(null);
+        }
+        if (target == null && !myAccounts.isEmpty()) {
+            target = myAccounts.get(0); // 지정 없음 또는 남의 계좌 지정 시 내 첫 계좌로 대체
         }
 
         List<Map<String, Object>> accountOptions = new ArrayList<>();

@@ -326,6 +326,24 @@ body {
     justify-content: center;
     font-size: 2.2rem;
 }
+.login-icon-img {
+    width: 84px;
+    height: auto;
+    object-fit: contain;
+}
+.login-btn-wrap {
+    position: relative;
+}
+.login-btn-mascot {
+    position: absolute;
+    right: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    pointer-events: none;
+}
 .password-field {
     position: relative;
 }

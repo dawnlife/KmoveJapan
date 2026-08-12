@@ -34,7 +34,7 @@
   <div class="login-panel row g-0">
     <!-- 좌측: 안내 -->
     <div class="col-md-5 border-end d-flex flex-column align-items-center justify-content-center py-5">
-      <div class="login-icon-box mb-3">👤</div>
+      <img src="/images/login.png" alt="아이디 로그인" class="login-icon-img mb-3">
       <div class="fw-bold fs-5 mb-2">아이디 로그인</div>
       <div class="text-muted text-center small">아이디·비밀번호를 통해<br>인터넷뱅킹에 로그인합니다.</div>
     </div>
@@ -49,7 +49,10 @@
           <input type="password" class="form-control form-control-lg" name="password" id="passwordInput" placeholder="비밀번호 입력" required>
           <button type="button" class="password-toggle-btn" id="passwordToggleBtn" aria-label="비밀번호 표시">👁</button>
         </div>
-        <button type="submit" class="btn btn-brand-yellow btn-lg w-100">로그인</button>
+        <div class="login-btn-wrap">
+          <button type="submit" class="btn btn-brand-yellow btn-lg w-100">로그인</button>
+          <img src="/images/login_check.png" alt="" class="login-btn-mascot">
+        </div>
       </form>
       <p class="text-center small mt-3 mb-1" style="color:var(--brand-yellow-dark); font-weight:700;">
         아이디·비밀번호 5회 연속 오류 시

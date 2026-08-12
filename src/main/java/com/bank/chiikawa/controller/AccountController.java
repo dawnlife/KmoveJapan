@@ -28,6 +28,7 @@ public class AccountController {
             return "redirect:/login";
         }
         Account account = accountService.findByAccountNumber(accountNumber)
+                .filter(a -> accountService.isOwnedBy(a, customer)) // IDOR 방지: 남의 계좌면 못 찾은 것과 동일하게 처리
                 .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다: " + accountNumber));
 
         model.addAttribute("loggedIn", true);

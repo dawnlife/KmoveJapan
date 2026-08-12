@@ -38,6 +38,13 @@ public class AccountService {
         return transactionRepository.findByAccountOrderByTxDatetimeDesc(account);
     }
 
+    /** 소유권 검증: 이 계좌가 해당 고객 소유인지 확인 (IDOR 방지) */
+    public boolean isOwnedBy(Account account, Customer customer) {
+        return account != null && customer != null
+                && account.getOwner() != null
+                && account.getOwner().getId().equals(customer.getId());
+    }
+
     /**
      * SCR002 메인화면 "최근이체내역" 탭용 — 고객이 보유한 모든 계좌의 거래내역을
      * 합쳐서 최신순으로 정렬 후 상위 limit건만 반환.

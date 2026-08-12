@@ -58,7 +58,8 @@ public class TransferController {
         if (customer == null) return "redirect:/login";
 
         Account fromAccount = accountService.findByAccountNumber(fromAccountNumber).orElse(null);
-        if (fromAccount == null) {
+        // IDOR 방지: 출금계좌가 로그인한 고객 소유가 아니면 이체 자체를 거부 (남의 계좌에서 출금 방지)
+        if (fromAccount == null || !accountService.isOwnedBy(fromAccount, customer)) {
             model.addAttribute("error", "출금계좌 정보를 확인할 수 없습니다.");
             model.addAttribute("loggedIn", true);
             model.addAttribute("customerName", customer.getName());
