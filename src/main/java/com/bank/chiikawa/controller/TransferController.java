@@ -44,6 +44,15 @@ public class TransferController {
         model.addAttribute("customerName", customer.getName());
         model.addAttribute("accounts", myAccounts);
         model.addAttribute("selectedAccount", fromAccount);
+
+        // 우측 안내패널: 이체한도 안내 (機能-09)
+        model.addAttribute("perTransactionLimit", transferService.getPerTransactionLimitFormatted());
+        model.addAttribute("perDayLimit", transferService.getPerDayLimitFormatted());
+        Account target = fromAccount != null
+                ? accountService.findByAccountNumber(fromAccount).filter(a -> accountService.isOwnedBy(a, customer)).orElse(null)
+                : (myAccounts.isEmpty() ? null : myAccounts.get(0));
+        model.addAttribute("todayOutgoing", target != null ? transferService.getTodayOutgoingFormatted(target) : "0");
+
         return "transfer-input"; // templates/transfer-input.mustache
     }
 

@@ -25,16 +25,17 @@ public class TransferService {
 
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
+    private final BigDecimal perTransactionLimit;
+    private final BigDecimal perDayLimit;
 
-    @Value("${transfer.limit.per-transaction}")
-    private BigDecimal perTransactionLimit;
-
-    @Value("${transfer.limit.per-day}")
-    private BigDecimal perDayLimit;
-
-    public TransferService(AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    public TransferService(AccountRepository accountRepository,
+                            TransactionRepository transactionRepository,
+                            @Value("${transfer.limit.per-transaction}") BigDecimal perTransactionLimit,
+                            @Value("${transfer.limit.per-day}") BigDecimal perDayLimit) {
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
+        this.perTransactionLimit = perTransactionLimit;
+        this.perDayLimit = perDayLimit;
     }
 
     /** SCR004 「振込実行」버튼 - 한도 검증만 수행 (실제 이체는 SCR005 확인 후) */
@@ -88,6 +89,21 @@ public class TransferService {
                 .filter(t -> t.getTxDatetime().isAfter(startOfDay))
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    /** 화면표시용: 1회 이체한도 (포맷된 문자열) */
+    public String getPerTransactionLimitFormatted() {
+        return format(perTransactionLimit);
+    }
+
+    /** 화면표시용: 1일 이체한도 (포맷된 문자열) */
+    public String getPerDayLimitFormatted() {
+        return format(perDayLimit);
+    }
+
+    /** 화면표시용: 오늘 이 계좌에서 이미 이체한 합계 (포맷된 문자열) */
+    public String getTodayOutgoingFormatted(Account account) {
+        return format(sumTodayOutgoing(account));
     }
 
     private String format(BigDecimal v) {

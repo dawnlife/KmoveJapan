@@ -1,39 +1,185 @@
 {{>header}}
-<h4 class="screen-title mb-3">&lt;SCR004&gt; 계좌이체 입력</h4>
+</div><!-- header의 narrow container를 닫고 아래는 wide 레이아웃 -->
 
-{{#error}}
-<div class="alert alert-danger py-2">{{error}}</div>
-{{/error}}
+<div class="container py-4" style="max-width: 1100px;">
 
-<form method="post" action="/transfer">
-  <div class="mb-3">
-    <label class="form-label">출금계좌</label>
-    <select class="form-select" name="fromAccountNumber" required>
-      <option value="">계좌를 선택하세요</option>
-      {{#accounts}}
-      <option value="{{accountNumber}}">{{accountNumber}} ({{balanceFormatted}}원)</option>
-      {{/accounts}}
-    </select>
+  <!-- 브레드크럼 -->
+  <div class="text-end small text-muted mb-3">
+    <a href="/main" class="text-muted text-decoration-none">홈</a>
+    <span class="mx-1">></span>
+    <span>송금</span>
+    <span class="mx-1">></span>
+    <span class="fw-bold" style="color:var(--brand-navy);">계좌이체</span>
   </div>
-  <div class="mb-3">
-    <label class="form-label">입금계좌번호</label>
-    <input type="text" class="form-control" name="toAccountNumber" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label">이체금액</label>
-    <input type="number" class="form-control" name="amount" min="1" required>
-  </div>
-  <div class="mb-3">
-    <label class="form-label d-block">이체구분</label>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="transferType" value="IMMEDIATE" checked>
-      <label class="form-check-label">즉시이체</label>
+
+  <h3 class="fw-bold mb-4">계좌이체</h3>
+
+  {{#error}}
+  <div class="alert alert-danger py-2">{{error}}</div>
+  {{/error}}
+
+  <div class="row g-4">
+    <!-- 좌측: 입력 폼 -->
+    <div class="col-lg-8">
+      <form method="post" action="/transfer" id="transferForm">
+
+        <!-- 출금정보 -->
+        <div class="transfer-section mb-4">
+          <div class="fw-bold fs-5 mb-3">출금정보</div>
+
+          <ul class="nav login-tabs mb-0">
+            <li class="nav-item flex-fill text-center">
+              <a class="nav-link active" href="#">치이카와은행에서 출금</a>
+            </li>
+            <li class="nav-item flex-fill text-center">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">다른은행에서 출금</a>
+            </li>
+          </ul>
+          <div class="login-panel p-4">
+            <div class="account-select-box mb-0">
+              <select class="account-select-input" name="fromAccountNumber" id="fromAccountSelect" required>
+                <option value="">계좌를 선택하세요</option>
+                {{#accounts}}
+                <option value="{{accountNumber}}" data-balance="{{balanceFormatted}}">{{accountNumber}} ({{balanceFormatted}}원)</option>
+                {{/accounts}}
+              </select>
+              <img src="/images/history.png" alt="" class="account-select-mascot" style="width:52px;height:52px;object-fit:contain;">
+            </div>
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" id="keepFromAccount" checked disabled>
+              <label class="form-check-label small text-muted" for="keepFromAccount">선택한 계좌에서 계속 출금합니다.</label>
+            </div>
+            <div class="small text-muted mt-2">※ 이체 비밀번호는 다음 단계(이체 확인 화면)에서 입력합니다.</div>
+          </div>
+        </div>
+
+        <!-- 입금정보 -->
+        <div class="transfer-section mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="fw-bold fs-5">입금정보</div>
+            <div class="small text-muted">잔여이체한도 <span class="fw-bold" style="color:var(--brand-navy);">{{perDayLimit}}원</span></div>
+          </div>
+          <div class="login-panel p-4">
+            <div class="mb-3">
+              <label class="form-label small text-muted">입금계좌번호</label>
+              <input type="text" class="form-control form-control-lg" name="toAccountNumber" placeholder="계좌번호 입력" required>
+            </div>
+            <div class="mb-2">
+              <label class="form-label small text-muted">입금액</label>
+              <div class="input-group input-group-lg">
+                <input type="text" inputmode="numeric" class="form-control" name="amount" id="amountInput" placeholder="0" required>
+                <span class="input-group-text">원</span>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-1" id="amountPresets">
+              <button type="button" class="btn btn-sm period-btn" data-amount="1000">1천원</button>
+              <button type="button" class="btn btn-sm period-btn" data-amount="5000">5천원</button>
+              <button type="button" class="btn btn-sm period-btn" data-amount="10000">1만원</button>
+              <button type="button" class="btn btn-sm period-btn" data-amount="50000">5만원</button>
+              <button type="button" class="btn btn-sm period-btn" data-amount="100000">10만원</button>
+              <button type="button" class="btn btn-sm period-btn" data-amount="all">전액</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 이체구분 -->
+        <div class="transfer-section mb-4">
+          <div class="fw-bold fs-5 mb-3">이체구분</div>
+          <div class="login-panel p-4">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="transferType" id="typeImmediate" value="IMMEDIATE" checked>
+              <label class="form-check-label" for="typeImmediate">즉시이체</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="transferType" id="typeReserved" value="RESERVED">
+              <label class="form-check-label" for="typeReserved">예약이체</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <div class="login-btn-wrap d-inline-block" style="position:relative;">
+            <button type="submit" class="btn btn-brand-yellow btn-lg px-5">이체실행</button>
+            <img src="/images/history_button.png" alt="" class="login-btn-mascot"
+                 style="position:absolute;left:-30px;top:50%;transform:translateY(-70%);width:74px;height:74px;object-fit:contain;pointer-events:none;">
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="form-check form-check-inline">
-      <input class="form-check-input" type="radio" name="transferType" value="RESERVED">
-      <label class="form-check-label">예약이체</label>
+
+    <!-- 우측: 안내 패널 -->
+    <div class="col-lg-4">
+      <div class="transfer-side-box mb-3">
+        <div class="fw-bold mb-2">이체한도 안내</div>
+        <div class="d-flex justify-content-between small py-1">
+          <span class="text-muted">1회</span><span class="fw-bold">{{perTransactionLimit}}원</span>
+        </div>
+        <div class="d-flex justify-content-between small py-1">
+          <span class="text-muted">1일</span><span class="fw-bold">{{perDayLimit}}원</span>
+        </div>
+        <hr class="my-2">
+        <div class="d-flex justify-content-between small py-1">
+          <span class="text-muted">오늘의 이체 합계</span><span class="fw-bold" style="color:var(--brand-yellow-dark);">{{todayOutgoing}}원</span>
+        </div>
+      </div>
+
+      <div class="transfer-side-box mb-3 d-flex gap-3 align-items-start">
+        <img src="/images/security.png" alt="" style="width:44px;height:auto;flex-shrink:0;">
+        <div>
+          <div class="fw-bold mb-1" style="color:var(--brand-yellow-dark);">주의하세요!</div>
+          <div class="small text-muted">지인이나 검찰, 경찰, 금융감독원 등 국가기관을 사칭하여 이체 요구 시 반드시 사실관계를 확인하세요.</div>
+        </div>
+      </div>
+
+      <div class="transfer-side-box d-flex gap-3 align-items-start">
+        <img src="/images/locker.png" alt="" style="width:44px;height:auto;flex-shrink:0;">
+        <div>
+          <div class="fw-bold mb-1">안내</div>
+          <div class="small text-muted">치이카와은행 내 계좌로 이체 시 다음 단계에서 이체 비밀번호 확인 후 즉시 처리됩니다.</div>
+        </div>
+      </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-brand">振込実行 (이체실행)</button>
-</form>
+
+<script>
+  var fromSelect = document.getElementById('fromAccountSelect');
+  var amountInput = document.getElementById('amountInput');
+  var transferForm = document.getElementById('transferForm');
+
+  function formatComma(numStr) {
+    var digits = String(numStr).replace(/[^\d]/g, ''); // 숫자만 남김 (소수점/콤마 제거)
+    if (!digits) return '';
+    digits = digits.replace(/^0+(?=\d)/, ''); // 앞자리 불필요한 0 제거
+    return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  }
+
+  // 프리셋 버튼 클릭 시 콤마 포맷으로 입력
+  document.querySelectorAll('#amountPresets .period-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('#amountPresets .period-btn').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      var v = btn.dataset.amount;
+      if (v === 'all') {
+        var opt = fromSelect.options[fromSelect.selectedIndex];
+        amountInput.value = opt ? formatComma(opt.dataset.balance) : '';
+      } else {
+        amountInput.value = formatComma(v);
+      }
+    });
+  });
+
+  // 사용자가 직접 입력할 때도 실시간으로 콤마 포맷 적용
+  amountInput.addEventListener('input', function () {
+    var caretFromEnd = amountInput.value.length - amountInput.selectionStart;
+    amountInput.value = formatComma(amountInput.value);
+    var pos = amountInput.value.length - caretFromEnd;
+    amountInput.setSelectionRange(pos, pos);
+  });
+
+  // 서버로 제출하기 직전, 콤마를 제거한 순수 숫자로 되돌림 (BigDecimal 파싱용)
+  transferForm.addEventListener('submit', function () {
+    amountInput.value = amountInput.value.replace(/,/g, '');
+  });
+</script>
+
 {{>footer}}

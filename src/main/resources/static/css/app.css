@@ -344,6 +344,17 @@ body {
     object-fit: contain;
     pointer-events: none;
 }
+
+/* ===== 이체입력 화면 (SCR004) ===== */
+.transfer-side-box {
+    background: #FFFFFF;
+    border: 1px solid #EFEFEF;
+    border-radius: 12px;
+    padding: 18px;
+}
+.transfer-section .login-panel {
+    border-top: none;
+}
 .password-field {
     position: relative;
 }

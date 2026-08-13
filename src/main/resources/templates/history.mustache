@@ -30,7 +30,7 @@
         <option value="{{accountNumber}}" {{#selected}}selected{{/selected}}>{{accountNumber}}</option>
         {{/accountOptions}}
       </select>
-      <span class="account-select-mascot">🐰</span>
+      <img src="/images/history.png" alt="" class="account-select-mascot" style="width:56px;height:56px;object-fit:contain;">
     </div>
 
     <!-- 조회기간 -->
@@ -109,9 +109,12 @@
           <div>- 조회결과는 최대 100건까지 표시됩니다.</div>
         </div>
       </div>
-      <div class="col-md-4 text-end">
-        <span class="hero-mascot mascot-small">🐰</span>
-        <button type="submit" class="btn btn-brand-yellow btn-lg px-5">조회</button>
+      <div class="col-md-4 text-end" style="padding-right:48px;">
+        <div class="login-btn-wrap d-inline-block" style="position:relative;">
+          <button type="submit" class="btn btn-brand-yellow btn-lg px-5">조회</button>
+          <img src="/images/history_button.png" alt="" class="login-btn-mascot"
+               style="position:absolute;left:-40px;top:50%;transform:translateY(-70%);width:80px;height:80px;object-fit:contain;pointer-events:none;">
+        </div>
       </div>
     </div>
   </form>
